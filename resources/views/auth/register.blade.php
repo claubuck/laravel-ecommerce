@@ -1,4 +1,10 @@
 <x-guest-layout>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-light text-dark">
+                    <div class="card-body">
+                        <h4 class="card-title">Registrarse</h4>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +55,11 @@
             </x-primary-button>
         </div>
     </form>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
 </x-guest-layout>
