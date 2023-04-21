@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->dateTime('sale_date');
+            $table->decimal('tax')->nullable();
             $table->decimal('total');
             $table->string('status')->default('Valid');
             $table->foreignIdFor(User::class);

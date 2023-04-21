@@ -52,7 +52,7 @@
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                             <a href="{{ route('sales.show', $sale) }}"
                                                 class="btn btn-outline-primary">Detalle</a>
-                                            <a href="{{ route('sale-print', $sale) }}"
+                                            <a href="{{ route('sale-print-pdf',$sale->id) }}"
                                                 class="btn btn-outline-primary">Imprimir</a>
                                             {{--  <button type="submit" class="btn btn-outline-primary">Eliminar</button> --}}
                                         </div>

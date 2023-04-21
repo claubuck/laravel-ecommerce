@@ -64,7 +64,7 @@
                     <input type="number" class="form-control" id="tax" name="tax" value="0" placeholder="Opcional">
                 </div>
                 <div class="col-2 mb-3 mt-3">
-                    <label for="discount">Descuento %</label>
+                    <label for="discount">Descuento en $</label>
                     <input type="text" class="form-control" id="discount" name="discount" value="0" placeholder="Opcional">
                 </div>
 
@@ -244,7 +244,7 @@
 
             if (product_id != "" && quantity != "" && quantity > 0 && price != "") {
                 if (parseInt(stock) >= parseInt(quantity)) {
-                    subtotal[cont] = (quantity * price) - (quantity * price * (discount / 100));
+                    subtotal[cont] = (quantity * price) - discount;
                     total = total + subtotal[cont];
                     var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" onclick="eliminar(' +
                         cont +
