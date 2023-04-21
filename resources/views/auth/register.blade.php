@@ -21,6 +21,17 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="last_name" class="form-label">{{ __('Last Name') }}</label>
+                                <input id="last_name" class="form-control @error('last_name') is-invalid @enderror"
+                                    type="text" name="last_name" value="{{ old('last_name') }}" required autocomplete="family-name" />
+                                <div class="invalid-feedback">
+                                    @error('last_name')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="email" class="form-label">{{ __('Email') }}</label>
                                 <input id="email" class="form-control @error('email') is-invalid @enderror"
                                     type="email" name="email" value="{{ old('email') }}" required

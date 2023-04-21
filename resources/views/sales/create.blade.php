@@ -61,11 +61,11 @@
 
                 <div class="col-2 mb-3 mt-3">
                     <label for="tax">Impuesto</label>
-                    <input type="number" class="form-control" id="tax" name="tax" placeholder="Opcional">
+                    <input type="number" class="form-control" id="tax" name="tax" value="0" placeholder="Opcional">
                 </div>
                 <div class="col-2 mb-3 mt-3">
                     <label for="discount">Descuento %</label>
-                    <input type="text" class="form-control" id="discount" name="discount" placeholder="Opcional">
+                    <input type="text" class="form-control" id="discount" name="discount" value="0" placeholder="Opcional">
                 </div>
 
             </div>
@@ -154,6 +154,7 @@
 
 
 @section('js')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#agregar").click(function() {
@@ -317,7 +318,7 @@
             total = total - subtotal[index];
             total_impuesto = total * impuesto / 100;
             total_pagar_html = total + total_impuesto;
-            $("#total").html("$ + total");
+            $("#total").html("$" + total);
             $("#total_pagar_html").html("$" + total_impuesto);
             $("#total_impuesto").html("$" + total_pagar_html);
             $("#total_pagar").val(total_pagar_html.toFixed(2));
@@ -325,4 +326,6 @@
             evaluar();
         }
     </script>
+
+
 @endsection

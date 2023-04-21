@@ -6,6 +6,11 @@ use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use App\Models\Product;
+use App\Models\saleDetail;
+use Dompdf\Dompdf;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class SaleController extends Controller
 {
@@ -33,7 +38,36 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
-        //
+        $user = Auth::user();
+        $sale = $user->sales()->create([
+            'total' => $request->input('total'),
+            'sale_date' => Carbon::now(),
+        ]);
+
+
+        $saleDetails = [];
+        foreach ($request->product_id as $key => $product) {
+
+            $product = Product::findOrFail($request->product_id[$key]);
+
+            $saleDetail = new saleDetail([
+                "quantity" => $request->quantity[$key],
+                "price" => $request->price[$key],
+                "discount" => $request->discount[$key],
+            ]);
+            $saleDetail->product()->associate($product);
+            $saleDetails[] = $saleDetail;
+        }
+        $sale->saleDetails()->saveMany($saleDetails);
+
+        // Descontar el stock de cada producto vendido
+        foreach ($saleDetails as $saleDetail) {
+            $product = $saleDetail->product;
+            $product->stock -= $saleDetail->quantity;
+            $product->save();
+        }
+
+        return redirect()->route('sales.index');
     }
 
     /**
@@ -41,7 +75,15 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        $subtotal = 0;
+        $saleDetails = $sale->saleDetails;
+        foreach ($saleDetails as $saleDetail) {
+            $subtotal += $saleDetail->quantity * $saleDetail->price -
+                $saleDetail->quantity * $saleDetail->price * $saleDetail->discount / 100;
+        }
+
+
+        return view('sales.show', compact('sale', 'saleDetails', 'subtotal'));
     }
 
     /**
@@ -66,5 +108,29 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         //
+    }
+
+    public function print(Sale $sale)
+    {
+        //
+    }
+
+    public function generatePdf($id)
+    {
+        $sale = Sale::findOrFail($id);
+        $subtotal = 0;
+        $saleDetails = $sale->saleDetails;
+        foreach ($saleDetails as $saleDetail) {
+            $subtotal += $saleDetail->quantity * $saleDetail->price -
+                $saleDetail->quantity * $saleDetail->price * $saleDetail->discount / 100;
+        }
+
+
+        $pdf = new Dompdf();
+        $view = View::make('sales.sales', compact('sale', 'saleDetails', 'subtotal'))->render();
+        $pdf->loadHtml($view);
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+        return $pdf->stream('venta.pdf');
     }
 }

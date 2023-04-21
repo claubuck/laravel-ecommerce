@@ -30,8 +30,9 @@
                                 <td><a href="{{ route('sales.show', $sale) }}">{{ $sale->id }}</a></td>
                                 <td>{{ $sale->sale_date }}</td>
                                 <td>{{ $sale->total }}</td>
+                                <td></td>
 
-                                @if ($sale->status == 'VALID')
+                                {{-- @if ($sale->status == 'VALID')
                                     <td>
                                         <a href="{{ route('change_status.sales', $sale) }}" class="btn btn-outline-success">
                                             Activa<i class="fas fa-check"></i>
@@ -43,7 +44,7 @@
                                             Cancelada<i class="fas fa-times"></i>
                                         </a>
                                     </td>
-                                @endif
+                                @endif --}}
 
                                 <td>
                                     <form action="{{ route('sales.destroy', $sale) }}" method="POST">

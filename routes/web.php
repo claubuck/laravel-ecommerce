@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaleController;
@@ -20,9 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+/* Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard'); */
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,6 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('sales',SaleController::class)->names('sales');
+    Route::get("sales/charts",[SaleController::class, "chartData"])->name("sales.chartData");
+    Route::get("sales/print/{sale}",[SaleController::class, "print"])->name("sale-print");
+    Route::get("sales/pdf/{sale}",[SaleController::class, "generatePdf"])->name("sale-print-pdf");
 
     Route::resource('products',ProductController::class)->names('products');
     Route::get("get_products_by_id",[ProductController::class, "get_products_by_id"])->name("get_products_by_id");

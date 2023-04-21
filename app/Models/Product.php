@@ -18,4 +18,8 @@ class Product extends Model
         'status',
 
     ];
+
+    public function saleDetails(){
+        return $this->hasMany(saleDetail::class);
+    }
 }
