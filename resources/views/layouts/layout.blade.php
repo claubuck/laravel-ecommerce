@@ -74,7 +74,7 @@
                         {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                         <a class="collapse-item" href="{{ route('sales.create') }}">Vender</a>
                         <a class="collapse-item" href="{{ route('sales.index') }}">Ventas</a>
-                        <a class="collapse-item" href="#">Reportes</a>
+                        <a class="collapse-item" href="{{ route('sales-report') }}">Reportes</a>
                     </div>
                 </div>
             </li>
@@ -385,13 +385,13 @@
 
                         
                     </div> --}}
-                    <div class="container">
+                    
                         <div class="row">
                           <div class="col-md-12">
                             @yield('content')
                           </div>
                         </div>
-                      </div>
+                      
 
                 </div>
                 <!-- /.container-fluid -->

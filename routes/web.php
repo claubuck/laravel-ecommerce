@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('sales',SaleController::class)->names('sales');
     Route::get("sales/charts",[SaleController::class, "chartData"])->name("sales.chartData");
+    Route::get("sales-report",[SaleController::class, "report"])->name("sales-report");
     Route::get("sales/print/{sale}",[SaleController::class, "print"])->name("sale-print");
     Route::get("sales/pdf/{sale}",[SaleController::class, "generatePdf"])->name("sale-print-pdf");
 

@@ -38,7 +38,7 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
-       /*  return $request; */
+        /*  return $request; */
         $user = Auth::user();
         $sale = $user->sales()->create([
             'total' => $request->input('total'),
@@ -116,6 +116,17 @@ class SaleController extends Controller
     public function print(Sale $sale)
     {
         //
+    }
+
+    public function report()
+    {
+        $sales = Sale::whereDate('created_at', Carbon::today())->get();
+        $cashSales = $sales->sum('cash');
+        $cardSales = $sales->sum('card');
+        $totalCash = $sales->sum('cash');
+        $totalCard = $sales->sum('card');
+        $total = $totalCash + $totalCard;
+        return view('sales.report', compact('sales', 'totalCash', 'totalCard', 'total'));
     }
 
     public function generatePdf($id)
