@@ -11,6 +11,8 @@
 
     <title>Poncho Empanadas</title>
 
+    @yield('css')
+
     <!-- Custom styles for this page -->
 <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 {{-- <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}"> --}}

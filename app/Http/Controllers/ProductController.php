@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create'); 
+        return view('products.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductController extends Controller
             'stock' => 'required|numeric',
             'image' => 'required|image',
         ]);
-    
+
         $product = new Product;
         $product->name = $validatedData['name'];
         $product->description = $validatedData['description'];
@@ -47,7 +47,7 @@ class ProductController extends Controller
         $product->stock = $validatedData['stock'];
         $product->image = $validatedData['image']->store('products', 'public');
         $product->save();
-    
+
         return redirect()->route('products.index');
     }
 
@@ -83,17 +83,24 @@ class ProductController extends Controller
         //
     }
 
-    public function get_products_by_barcode(Request $request){
-        if($request->ajax()){
-            $products = Product::where('code',$request->code)->firstOrFail();
+    public function get_products_by_barcode(Request $request)
+    {
+        if ($request->ajax()) {
+            $products = Product::where('code', $request->code)->firstOrFail();
             return response()->json($products);
         }
     }
 
-    public function get_products_by_id(Request $request){
-        if($request->ajax()){
+    public function get_products_by_id(Request $request)
+    {
+        $query = $request->input('q');
+
+        $products = Product::where('name', 'LIKE', '%' . $query . '%')->get();
+
+        return response()->json($products);
+        /* if($request->ajax()){
             $products = Product::findOrFail($request->product_id);
             return response()->json($products);
-        }
+        } */
     }
 }

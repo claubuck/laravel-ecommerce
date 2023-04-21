@@ -38,9 +38,12 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
+       /*  return $request; */
         $user = Auth::user();
         $sale = $user->sales()->create([
             'total' => $request->input('total'),
+            'cash' => $request->input('cash'),
+            'card' => $request->input('card'),
             'sale_date' => Carbon::now(),
         ]);
 

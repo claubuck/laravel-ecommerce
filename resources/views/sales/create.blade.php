@@ -1,5 +1,10 @@
 @extends('layouts.layout')
 
+@section('css')
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
+
 @section('heading_page')
     <h1 class="h3 mb-0 text-gray-800">Registrar venta</h1>
     {{-- <a href="{{ route('sales.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
@@ -31,7 +36,20 @@
                     <input type="text" class="form-control" id="code" name="code">
                 </div>
 
-                <div class="col-6 mb-3 mt-3">
+                
+                  <div class="col-6 mb-3 mt-3">
+                    <label for="product">Producto</label>
+                    <select class="js-example-basic-single form-control" name="product_id" id="product_id">           
+                    </select>
+                </div>
+
+                {{-- <div class="col-6 mb-3 mt-3">
+                    <label for="product_id">Productos</label>
+                    <input class="form-control" name="product_id" id="product_id" type="text"
+                        placeholder="Buscar producto">
+                </div> --}}
+
+                {{-- <div class="col-6 mb-3 mt-3">
                     <label for="product_id">Productos</label>
                     <select class="form-control" name="product_id" id="product_id">
                         <option name="option" id="option" value="" disabled selected>Seleccione un producto
@@ -41,7 +59,7 @@
                                 {{ $product->name }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
                 <div class="col-3 mb-3 mt-3">
                     <label for="stock">Stock Actual del producto</label>
                     <input type="text" class="form-control" id="stock" name="stock" disabled>
@@ -61,11 +79,13 @@
 
                 <div class="col-2 mb-3 mt-3">
                     <label for="tax">Impuesto</label>
-                    <input type="number" class="form-control" id="tax" name="tax" value="0" placeholder="Opcional">
+                    <input type="number" class="form-control" id="tax" name="tax" value="0"
+                        placeholder="Opcional">
                 </div>
                 <div class="col-2 mb-3 mt-3">
                     <label for="discount">Descuento en $</label>
-                    <input type="text" class="form-control" id="discount" name="discount" value="0" placeholder="Opcional">
+                    <input type="text" class="form-control" id="discount" name="discount" value="0"
+                        placeholder="Opcional">
                 </div>
 
             </div>
@@ -130,17 +150,17 @@
                     </tbody>
                 </table>
 
-                {{-- <div class="row">
+                <div class="row">
                     <div class="col-4 mb-3 mt-3">
-                        <label for="pago">Cobro en efectivo</label>
-                        <input type="text" class="form-control" id="pago" name="pago">
+                        <label for="cash">Cobro en efectivo</label>
+                        <input type="text" class="form-control" id="cash" name="cash">
                     </div>
                     <div class="col-4 mb-3 mt-3">
-                        <label for="collect">Saldo a cuenta corriente</label>
-                        <input type="text" class="form-control" id="collect" name="collect">
+                        <label for="card">Cobro con tarjeta</label>
+                        <input type="text" class="form-control" id="card" name="card">
                     </div>
 
-                </div> --}}
+                </div>
 
             </div>
 
@@ -149,12 +169,13 @@
 
         </form>
     </div>
-
 @endsection
 
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#agregar").click(function() {
@@ -168,7 +189,44 @@
         subtotal = [];
 
         $("#guardar").hide();
-        $("#product_id").change(mostrarValores);
+
+        // Inicializar el plugin Select2 en el campo de entrada de texto
+        $('#product_id').select2({
+            minimumInputLength: 3, // El usuario debe escribir al menos 3 caracteres antes de buscar
+            ajax: {
+                url: "{{ route('get_products_by_id') }}", // URL del endpoint del servidor para buscar productos
+                dataType: 'json',
+                data: function(params) {
+                    return {
+                        q: params.term // El término de búsqueda del usuario
+                    };
+                },
+                processResults: function(data) {
+                    // Convertir los datos recibidos del servidor en el formato esperado por Select2
+                    var results = $.map(data, function(product) {
+                        return {
+                            id: product.id,
+                            text: product.name,
+                            stock: product.stock,
+                            price: product.sell_price
+                        };
+                    });
+
+                    return {
+                        results: results
+                    };
+                }
+            }
+        });
+
+        // Mostrar el precio y el stock del producto seleccionado en campos de texto separados
+        $('#product_id').on('select2:select', function(e) {
+            var data = e.params.data;
+            $('#price').val(data.price);
+            $('#stock').val(data.stock);
+        });
+
+        /* $("#product_id").change(mostrarValores);
 
         function mostrarValores() {
             datosProducto = document.getElementById("product_id").value.split('_');
@@ -191,7 +249,7 @@
 
             });
 
-        })
+        }) */
 
 
         $(obtener_registro());
@@ -209,8 +267,8 @@
                     /* $("#product_id").val(data.stock); */
 
                     option = document.getElementById("option");
-                    option.value = data.id;
-                    option.text = data.name;
+                    /* option.value = data.id; */
+                    /* option.text = data.name; */
 
 
 
@@ -326,6 +384,4 @@
             evaluar();
         }
     </script>
-
-
 @endsection

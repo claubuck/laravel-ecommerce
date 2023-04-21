@@ -18,8 +18,10 @@
                         <tr>
                             <th>id</th>
                             <th>Fecha y Hora</th>
-                            <th>Total</th>
                             <th>Estado</th>
+                            <th>Efectivo</th>
+                            <th>Tarjeta</th>
+                            <th>Total</th>                          
                             <th>Acciones</th>
 
                         </tr>
@@ -29,8 +31,10 @@
                             <tr>
                                 <td><a href="{{ route('sales.show', $sale) }}">{{ $sale->id }}</a></td>
                                 <td>{{ $sale->sale_date }}</td>
-                                <td>{{ $sale->total }}</td>
                                 <td></td>
+                                <td>{{ $sale->cash }}</td>
+                                <td>{{ $sale->card }}</td>
+                                <td>{{ $sale->total }}</td>
 
                                 {{-- @if ($sale->status == 'VALID')
                                     <td>
