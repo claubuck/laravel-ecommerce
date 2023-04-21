@@ -20,7 +20,7 @@
         </div>
         <div class="mb-3">
             <label for="sell_price" class="form-label">Precio de Venta</label>
-            <input type="number" class="form-control" id="sell_price" name="sell_price" required>
+            <input type="number" class="form-control" id="sell_price" name="sell_price" step="0.01" required>
         </div>
         <div class="mb-3">
             <label for="stock" class="form-label">Cantidad en Stock</label>
