@@ -33,10 +33,10 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Ingresos (Por mes)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{ $monthSalesTotal }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">&euro;{{ $monthSalesTotal }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -51,10 +51,10 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Ingresos (Del Dia)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{ $totalSalesToday }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">&euro;{{ $totalSalesToday }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -74,10 +74,10 @@
                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $todaySalesCount }}</div>
                                 </div>
                                 <div class="col">
-                                    <div class="progress progress-sm mr-2">
+                                    {{-- <div class="progress progress-sm mr-2">
                                         <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
                                             aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
