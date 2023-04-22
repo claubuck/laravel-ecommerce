@@ -83,7 +83,7 @@
                         placeholder="Opcional">
                 </div>
                 <div class="col-2 mb-3 mt-3">
-                    <label for="discount">Descuento en $</label>
+                    <label for="discount">Descuento en &euro;</label>
                     <input type="text" class="form-control" id="discount" name="discount" value="0"
                         placeholder="Opcional">
                 </div>
@@ -115,7 +115,7 @@
                             <th></th>
                             <th>Total</th>
                             <th>
-                                <p aligin="right"><span id="total">$ 0.00</span></p>
+                                <p aligin="right"><span id="total">&euro; 0.00</span></p>
                             </th>
                         </tr>
                         <tr>
@@ -126,7 +126,7 @@
                                 <p>Total Impuesto</p>
                             </th>
                             <th>
-                                <p aligin="right"><span id="total_impuesto">$ 0.00</span></p>
+                                <p aligin="right"><span id="total_impuesto">&euro; 0.00</span></p>
                             </th>
                         </tr>
                         <tr>
@@ -137,7 +137,7 @@
                                 <p aligin="right">Total a Pagar</p>
                             </th>
                             <th>
-                                <p aligin="right"><span aligin="right" id="total_pagar_html">$ 0.00</span>
+                                <p aligin="right"><span aligin="right" id="total_pagar_html">&euro; 0.00</span>
                                     <input type="hidden" name="total" id="total_pagar">
                                 </p>
                             </th>
