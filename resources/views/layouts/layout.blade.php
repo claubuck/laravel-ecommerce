@@ -14,8 +14,8 @@
     @yield('css')
 
     <!-- Custom styles for this page -->
-<link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-{{-- <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}"> --}}
+    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}"> --}}
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -331,12 +331,15 @@
                                     $userName = Auth::user()->name;
                                     if (Auth::user()->last_name) {
                                         $userLastName = Auth::user()->last_name;
-                                    }else {$userLastName = "";}
+                                    } else {
+                                        $userLastName = '';
+                                    }
                                     
                                 @endphp
-                                    
-                                
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$userName}} {{$userLastName}}</span>
+
+
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $userName }}
+                                    {{ $userLastName }}</span>
                                 <img class="img-profile rounded-circle" src="{{ asset('img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -385,13 +388,18 @@
 
                         
                     </div> --}}
-                    
-                        <div class="row">
-                          <div class="col-md-12">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             @yield('content')
-                          </div>
                         </div>
-                      
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -438,7 +446,7 @@
                         @csrf
                         <button type="submit" class="btn btn-primary">{{ __('Log Out') }}</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
