@@ -62,7 +62,7 @@
                                         <tr>
                                             <td><a href="">{{$details->product->name}}</a></td>
                                             <td>{{$details->price}}</td>
-                                            <td>{{$details->discount}}%</td>
+                                            <td>{{$details->discount}}</td>
                                             <td>{{$details->quantity}}</td>
                                             <td>{{number_format($details->quantity*$details->price - $details->quantity*$details->price*$details->discount/100,2)}}</td>
 
