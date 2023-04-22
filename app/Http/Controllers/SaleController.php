@@ -146,7 +146,7 @@ class SaleController extends Controller
         $saleDetails = $sale->saleDetails;
         foreach ($saleDetails as $saleDetail) {
             $subtotal += $saleDetail->quantity * $saleDetail->price -
-                $saleDetail->quantity * $saleDetail->price * $saleDetail->discount / 100;
+                $saleDetail->discount;
         }
 
 
