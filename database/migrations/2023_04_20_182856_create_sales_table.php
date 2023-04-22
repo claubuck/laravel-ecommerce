@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->dateTime('sale_date');
             $table->decimal('tax')->nullable();
-            $table->decimal('cash')->nullable();
+            $table->decimal('name')->nullable();
             $table->decimal('card')->nullable();
             $table->decimal('total');
             $table->string('status')->default('Valid');
