@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -64,7 +65,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -72,7 +73,25 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+
+    $product->name = $request->input('name');
+    $product->description = $request->input('description');
+    $product->sell_price = $request->input('sell_price');
+    $product->stock = $request->input('stock');
+
+    if ($request->hasFile('image')) {
+        // elimina la imagen existente si el usuario carga una nueva
+        if ($product->image) {
+            Storage::delete($product->image);
+        }
+        $path = $request->file('image')->store('public/products');
+        $product->image = $path;
+    }
+
+    $product->save();
+
+    return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.');
+
     }
 
     /**
