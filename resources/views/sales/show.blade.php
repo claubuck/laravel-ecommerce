@@ -64,7 +64,8 @@
                                             <td>{{$details->price}}</td>
                                             <td>{{$details->discount}}</td>
                                             <td>{{$details->quantity}}</td>
-                                            <td>{{number_format($details->quantity*$details->price - $details->quantity*$details->price*$details->discount/100,2)}}</td>
+                                            <td>{{ number_format($details->quantity * $details->price - $details->discount, 2) }}
+                                            </td>
 
                                             
                                         </tr>
