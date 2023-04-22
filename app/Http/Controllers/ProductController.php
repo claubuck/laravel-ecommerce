@@ -80,7 +80,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return back()->with('success', 'Producto eliminado');
+
     }
 
     public function get_products_by_barcode(Request $request)
