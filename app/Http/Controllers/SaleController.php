@@ -110,7 +110,17 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+       $detallesVenta = saleDetail::where('sale_id', $sale->id)->get();
+    
+       foreach ($detallesVenta as $detalle) {
+        $producto = Product::find($detalle->product_id);
+        $producto->stock += $detalle->quantity;
+        $producto->save();
+    }
+    saleDetail::where('sale_id', $sale->id)->delete();
+    $sale->delete();
+    return redirect('/sales')->with('success', 'La venta ha sido eliminada y los productos han sido devueltos al stock.');
+    
     }
 
     public function print(Sale $sale)

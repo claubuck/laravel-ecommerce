@@ -58,7 +58,7 @@
                                                 class="btn btn-outline-primary">Detalle</a>
                                             <a href="{{ route('sale-print-pdf',$sale->id) }}"
                                                 class="btn btn-outline-primary">Imprimir</a>
-                                            {{--  <button type="submit" class="btn btn-outline-primary">Eliminar</button> --}}
+                                             <button type="submit" class="btn btn-outline-primary">Eliminar</button>
                                         </div>
                                     </form>
                                 </td>
