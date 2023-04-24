@@ -19,7 +19,12 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::get();
+        // Obtener la fecha actual
+        $currentDate = Carbon::now()->format('Y-m-d');
+
+        // Obtener las ventas del día actual
+        $sales = Sale::whereDate('sale_date', $currentDate)->orderBy('created_at', 'desc')->get();
+
         return view('sales.index', compact('sales'));
     }
 
@@ -110,17 +115,16 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-       $detallesVenta = saleDetail::where('sale_id', $sale->id)->get();
-    
-       foreach ($detallesVenta as $detalle) {
-        $producto = Product::find($detalle->product_id);
-        $producto->stock += $detalle->quantity;
-        $producto->save();
-    }
-    saleDetail::where('sale_id', $sale->id)->delete();
-    $sale->delete();
-    return redirect('/sales')->with('success', 'La venta ha sido eliminada y los productos han sido devueltos al stock.');
-    
+        $detallesVenta = saleDetail::where('sale_id', $sale->id)->get();
+
+        foreach ($detallesVenta as $detalle) {
+            $producto = Product::find($detalle->product_id);
+            $producto->stock += $detalle->quantity;
+            $producto->save();
+        }
+        saleDetail::where('sale_id', $sale->id)->delete();
+        $sale->delete();
+        return redirect('/sales')->with('success', 'La venta ha sido eliminada y los productos han sido devueltos al stock.');
     }
 
     public function print(Sale $sale)
