@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('products',ProductController::class)->names('products');
     Route::get("get_products_by_id",[ProductController::class, "get_products_by_id"])->name("get_products_by_id");
     Route::get("get_products_by_barcode",[ProductController::class, "get_products_by_barcode"])->name("get_products_by_barcode");
+
+    Route::resource('categories',CategoryController::class)->names('categories');
 });
 
 require __DIR__.'/auth.php';

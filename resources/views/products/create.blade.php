@@ -18,6 +18,14 @@
             <label for="description" class="form-label">Descripción del Producto</label>
             <textarea class="form-control" id="description" name="description" required></textarea>
         </div>
+        <div class="mb-3 mt-3">
+            <label for="address">Categoria</label>
+            <select class="form-group" name="category_id" id="category_id">
+              @foreach ($categories as $category)
+              <option value="{{$category->id}}">{{$category->name}}</option> 
+              @endforeach
+            </select>
+          </div>
         <div class="mb-3">
             <label for="sell_price" class="form-label">Precio de Venta</label>
             <input type="number" class="form-control" id="sell_price" name="sell_price" step="0.01" required>

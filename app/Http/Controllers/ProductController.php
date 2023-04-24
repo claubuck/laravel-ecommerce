@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();
+        $products = Product::with('category')->get();
         return view('products.index', compact('products'));
     }
 
@@ -24,7 +25,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::get();
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -39,6 +41,7 @@ class ProductController extends Controller
             'sell_price' => 'required|numeric',
             'stock' => 'required|numeric',
             'image' => 'required|image',
+            'category_id' => 'required',
         ]);
 
         $product = new Product;
@@ -47,9 +50,10 @@ class ProductController extends Controller
         $product->sell_price = $validatedData['sell_price'];
         $product->stock = $validatedData['stock'];
         $product->image = $validatedData['image']->store('products', 'public');
+        $product->category_id = $validatedData['category_id'];
         $product->save();
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Producto creado');
     }
 
     /**

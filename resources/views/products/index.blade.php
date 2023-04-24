@@ -19,6 +19,7 @@
                             <th>Code</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
+                            <th>Categoria</th>
                             <th>Stock</th>
                             <th>Estado</th>
                             <th>Precio</th>
@@ -42,6 +43,7 @@
                                     <td>{{ $product->code }}</td>
                                     <td><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></td>
                                     <td>{{ $product->description }}</td>
+                                    <td>{{ $product->category ? $product->category->name : 'Sin categoría' }}</td>
                                     <td>{{ $product->stock }}</td>
 
                                     @if ($product->status == 'Activo')

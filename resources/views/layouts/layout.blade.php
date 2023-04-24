@@ -91,8 +91,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Utilities:</h6> --}}
                         <a class="collapse-item" href="{{ route('products.index') }}">Productos</a>
+                        <a class="collapse-item" href="{{route('categories.index')}}">Categorias</a>
                         {{-- <a class="collapse-item" href="#">Stock</a> --}}
                         <a class="collapse-item" href="#">Reportes</a>
+                        
+                        
 
                     </div>
                 </div>
