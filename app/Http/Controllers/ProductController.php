@@ -69,7 +69,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        $categories = Category::get();
+        return view('products.edit', compact('product','categories'));
     }
 
     /**
@@ -82,6 +83,7 @@ class ProductController extends Controller
     $product->description = $request->input('description');
     $product->sell_price = $request->input('sell_price');
     $product->stock = $request->input('stock');
+    $product->category_id = $request->input('category_id');
 
     if ($request->hasFile('image')) {
         // elimina la imagen existente si el usuario carga una nueva
