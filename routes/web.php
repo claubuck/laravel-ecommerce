@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CashFlowController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -43,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get("get_products_by_barcode",[ProductController::class, "get_products_by_barcode"])->name("get_products_by_barcode");
 
     Route::resource('categories',CategoryController::class)->names('categories');
+
+    Route::resource('cash-flow',CashFlowController::class)->names('cash-flow');
+    Route::get("cash-reports",[CashFlowController::class, "reports"])->name("cash-reports.listing");
 });
 
 require __DIR__.'/auth.php';

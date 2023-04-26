@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cashFlow;
 use App\Models\Product;
 use App\Models\Sale;
 use Carbon\Carbon;
@@ -27,14 +28,23 @@ class DashboardController extends Controller
             ->groupBy(DB::raw('MONTH(sale_date)'))
             ->get();
         //Ventas por dia
-        $today = Carbon::today();
-        $totalSalesToday = Sale::whereDate('sale_date', $today)
-            ->sum('total');
+        $cashFlow = cashFlow::where('closed', '<>', 1)->first();
+        if ($cashFlow) {
+            $inicio = $cashFlow->inicio;
+        $fin = $cashFlow->fin;
+
+        $sale = Sale::whereBetween('created_at', [$inicio, $fin])->get();
+        $totalSalesToday = $sale->sum('total');
+        $todaySalesCount = $sale->count();
+    }else{
+        $totalSalesToday= '---No hay un turno iniciado';
+        $todaySalesCount= 'No hay un turno iniciado';
+    }
 
         // Obtener el monto de ventas del mes actual
         $monthSalesTotal = Sale::whereMonth('sale_date', Carbon::now()->month)->sum('total');
 
-        $todaySalesCount = Sale::whereDate('sale_date', today())->count();
+        
 
         $totalStock = Product::sum('stock');
 
