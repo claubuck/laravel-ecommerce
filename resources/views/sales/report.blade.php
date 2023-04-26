@@ -25,7 +25,7 @@
     </div>
 
     <div class="container">
-        <h1>Ventas del día</h1>
+        <h1>Ventas del turno actual</h1>
         <table class="table">
             <thead>
                 <tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Models\cashFlow;
 use App\Models\Product;
 use App\Models\saleDetail;
 use Dompdf\Dompdf;
@@ -19,11 +20,14 @@ class SaleController extends Controller
      */
     public function index()
     {
-        // Obtener la fecha actual
-        $currentDate = Carbon::now()->format('Y-m-d');
+        $cashFlow = cashFlow::where('closed', '<>', 1)->first();
+        if ($cashFlow) {
+            $inicio = $cashFlow->inicio;
+        $fin = $cashFlow->fin;
 
-        // Obtener las ventas del día actual
-        $sales = Sale::whereDate('sale_date', $currentDate)->orderBy('created_at', 'desc')->get();
+        $sales = Sale::whereBetween('created_at', [$inicio, $fin])->get();}else{
+            $sales=[];
+        }
 
         return view('sales.index', compact('sales'));
     }
@@ -134,12 +138,22 @@ class SaleController extends Controller
 
     public function report()
     {
-        $sales = Sale::whereDate('created_at', Carbon::today())->get();
-        $cashSales = $sales->sum('cash');
-        $cardSales = $sales->sum('card');
+        $cashFlow = cashFlow::where('closed', '<>', 1)->first();
+        if ($cashFlow) {
+            $inicio = $cashFlow->inicio;
+        $fin = $cashFlow->fin;
+
+        $sales = Sale::whereBetween('created_at', [$inicio, $fin])->get();
         $totalCash = $sales->sum('cash');
         $totalCard = $sales->sum('card');
         $total = $totalCash + $totalCard;
+    }else{
+        $sales=[];
+        
+        $totalCash = 0;
+        $totalCard = 0;
+        $total = $totalCash + $totalCard;
+        }
         return view('sales.report', compact('sales', 'totalCash', 'totalCard', 'total'));
     }
 
