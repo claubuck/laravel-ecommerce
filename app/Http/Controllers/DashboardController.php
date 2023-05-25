@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cashFlow;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\saleDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +42,28 @@ class DashboardController extends Controller
         $todaySalesCount= 'No hay un turno iniciado';
     }
 
+    //productos mas vendidos
+
+    $cashFlow = CashFlow::where('closed', '<>', 1)->first();
+
+if ($cashFlow) {
+    $inicio = $cashFlow->inicio;
+    $fin = $cashFlow->fin;
+
+    $saleDetails = saleDetail::join('sales', 'sale_details.sale_id', '=', 'sales.id')
+        ->whereBetween('sales.created_at', [$inicio, $fin])
+        ->groupBy('sale_details.product_id')
+        ->select('sale_details.product_id', DB::raw('SUM(sale_details.quantity) as total_quantity'))
+        ->orderByDesc('total_quantity')
+        ->take(5) // Obtén los 5 productos más vendidos
+        ->get();
+
+    $topSellingProducts = Product::whereIn('id', $saleDetails->pluck('product_id'))->get();
+} else {
+    $topSellingProducts = collect(); // No hay un turno iniciado, no se muestran productos
+}
+
+
         // Obtener el monto de ventas del mes actual
         $monthSalesTotal = Sale::whereMonth('sale_date', Carbon::now()->month)->sum('total');
 
@@ -48,7 +71,7 @@ class DashboardController extends Controller
 
         $totalStock = Product::sum('stock');
 
-        return view('dashboard', compact('sales','totalSalesToday', 'monthSalesTotal','todaySalesCount','totalStock','salesByMonth','salesByDay'));
+        return view('dashboard', compact('sales','totalSalesToday','topSellingProducts','saleDetails', 'monthSalesTotal','todaySalesCount','totalStock','salesByMonth','salesByDay'));
     }
 
     public function chartData()

@@ -129,31 +129,27 @@
             </div>
         </div>
 
-        <!-- Pie Chart -->
+        <!-- Productos mas vendidos -->
         <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-
+                    <h5>Productos más vendidos del turno</h5>
 
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myChartPie"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
-                        </span>
-                    </div>
+                    @if ($topSellingProducts->isEmpty())
+                        <p>No hay productos más vendidos disponibles.</p>
+                    @else
+                        <ul>
+                            @foreach ($topSellingProducts as $product)
+                                <li>{{ $product->name }} - Cantidad vendida:
+                                    {{ $saleDetails->where('product_id', $product->id)->first()->total_quantity }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
         </div>
