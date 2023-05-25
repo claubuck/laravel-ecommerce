@@ -16,6 +16,7 @@
     <!-- Custom styles for this page -->
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}"> --}}
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/6819/6819255.png">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
