@@ -135,7 +135,7 @@
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                    <h5>Productos más vendidos del turno</h5>
+                    <h5>Los 5 productos más vendidos del turno</h5>
 
                 </div>
                 <!-- Card Body -->
