@@ -13,21 +13,8 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('sales.store') }}" method="POST">
+        <form action="{{ route('sales.store') }}" id="payment-form" method="POST">
             @csrf @method('POST')
-
-            {{-- <div class="row">
-
-                <div class="col-4 mb-3 mt-3">
-                    <label for="address">Cliente</label>
-                    <select class="form-control" name="client_id" id="client_id">
-                        @foreach ($clients as $client)
-                            <option value="{{ $client->id }}">{{ $client->name . ' ' . $client->lastname }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div> --}}
-
 
             <div class="row">
 
@@ -36,10 +23,10 @@
                     <input type="text" class="form-control" id="code" name="code">
                 </div>
 
-                
-                  <div class="col-6 mb-3 mt-3">
+
+                <div class="col-6 mb-3 mt-3">
                     <label for="product">Producto</label>
-                    <select class="js-example-basic-single form-control" name="product_id" id="product_id">           
+                    <select class="js-example-basic-single form-control" name="product_id" id="product_id">
                     </select>
                 </div>
 
@@ -150,22 +137,34 @@
                     </tbody>
                 </table>
 
+                <div class="form-group text-center">
+                    <label for="payment">Forma de pago:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment_type" id="payment_cash" value="cash_pay">
+                        <label class="form-check-label" for="payment_cash">Efectivo</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment_type" id="payment_card" value="card_pay">
+                        <label class="form-check-label" for="payment_card">Tarjeta</label>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-4 mb-3 mt-3">
-                        <label for="cash">Cobro en efectivo</label>
-                        <input type="text" class="form-control" id="cash" name="cash">
+                        
+                        <input type="hidden" class="form-control" id="efec" name="efec">
                     </div>
                     <div class="col-4 mb-3 mt-3">
-                        <label for="card">Cobro con tarjeta</label>
-                        <input type="text" class="form-control" id="card" name="card">
+                        
+                        <input type="hidden" class="form-control" id="card" name="card">
                     </div>
-
                 </div>
+
 
             </div>
 
             <a class="btn btn-danger" data-bs-dismiss="modal">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" id="save-button" class="btn btn-primary">Guardar</button>
 
         </form>
     </div>
@@ -224,6 +223,8 @@
             $('#price').val(data.price);
             $('#stock').val(data.stock);
         });
+
+
 
         /* $("#product_id").change(mostrarValores);
 
@@ -363,6 +364,25 @@
 
         }
 
+        //------------------Selecciona metodo de pago
+        // Añadimos un evento al cambio de selección del radio button
+        $('input[type=radio][name=payment_type]').change(function() {
+            // Si el radio button seleccionado es el de efectivo
+            if (this.value == 'cash_pay') {
+                $('#efec').val(total_pagar.toFixed(2));
+            // Borramos el valor del campo card
+            $('#card').val('');
+            }
+            // Si el radio button seleccionado es el de tarjeta
+            else if (this.value == 'card_pay') {
+                $('#card').val(total_pagar.toFixed(2));
+            // Borramos el valor del campo cash
+            $('#efec').val('');
+      
+            }
+        });
+        //----------------------------
+
         function evaluar() {
             if (total > 0) {
                 $("#guardar").show();
@@ -382,5 +402,20 @@
             $("#fila" + index).remove();
             evaluar();
         }
+
+        //validaciones 
+
+        $('#save-button').click(function(e) {
+        e.preventDefault();
+        
+        // Comprobar si alguno de los dos radio buttons está seleccionado
+        if (!$('#payment_cash').is(':checked') && !$('#payment_card').is(':checked')) {
+            alert('Debes seleccionar al menos una opción de pago');
+            return;
+        }
+        
+        // Si al menos uno de los radio buttons está seleccionado, enviar el formulario
+        $('#payment-form').submit();
+    });
     </script>
 @endsection
