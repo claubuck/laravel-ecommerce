@@ -85,12 +85,20 @@ class ProductController extends Controller
     $product->stock = $request->input('stock');
     $product->category_id = $request->input('category_id');
 
-    if ($request->hasFile('image')) {
+    /* if ($request->hasFile('image')) {
         // elimina la imagen existente si el usuario carga una nueva
         if ($product->image) {
             Storage::delete($product->image);
         }
         $path = $request->file('image')->store('public/products');
+        $product->image = $path;
+    } */
+    if ($request->hasFile('image')) {
+        // elimina la imagen existente si el usuario carga una nueva
+        if ($product->image) {
+            Storage::delete($product->image);
+        }
+        $path = $request->file('image')->store('products', 'public');
         $product->image = $path;
     }
 

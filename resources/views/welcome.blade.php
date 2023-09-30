@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Start your development with FoodHut landing page.">
     <meta name="author" content="Devcrud">
     <title>FoodHut | Free Bootstrap 4.3.x template</title>
-   
-    <!-- font icons -->
-    <link rel="stylesheet" href="{{ asset('vendors/themify-icons/css/themify-icons.css')}}">
 
-    <link rel="stylesheet" href="{{ asset('vendors/animate/animate.css')}}">
+    <!-- font icons -->
+    <link rel="stylesheet" href="{{ asset('vendors/themify-icons/css/themify-icons.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('vendors/animate/animate.css') }}">
 
     <!-- Bootstrap + FoodHut main styles -->
-	<link rel="stylesheet" href="{{ asset('css/foodhut.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/foodhut.css') }}">
+
 </head>
+
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
-    
+    <style>
+        .bg-difuminado {
+            background-color: rgba(128, 128, 128, 0.6);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
     <!-- Navbar -->
     <nav class="custom-navbar navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="10">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -53,22 +63,22 @@
                 </li>
                 <li class="nav-item">
                     @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="btn btn-primary ml-xl-4">Dashboard</a>
-                        {{-- <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a> --}}
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-primary ml-xl-4">Login</a>
-                        {{-- <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a> --}}
+                        <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
+                            @auth
+                                <a href="{{ url('/dashboard') }}" class="btn btn-primary ml-xl-4">Dashboard</a>
+                                {{-- <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a> --}}
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-primary ml-xl-4">Login</a>
+                                {{-- <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a> --}}
 
-                        @if (Route::has('register'))
-                            {{-- <a href="{{ route('register') }}" class="btn btn-primary ml-xl-4">Register</a> --}}
-                            {{-- <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a> --}}
-                        @endif
-                    @endauth
-                </div>
-            @endif
-                   
+                                @if (Route::has('register'))
+                                    {{-- <a href="{{ route('register') }}" class="btn btn-primary ml-xl-4">Register</a> --}}
+                                    {{-- <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a> --}}
+                                @endif
+                            @endauth
+                        </div>
+                    @endif
+
                 </li>
             </ul>
         </div>
@@ -83,7 +93,7 @@
     </header>
 
     <!--  About Section  -->
-    <div id="about" class="container-fluid wow fadeIn" id="about"data-wow-duration="1.5s">
+    {{-- <div id="about" class="container-fluid wow fadeIn" id="about"data-wow-duration="1.5s">
         <div class="row">
             <div class="col-lg-6 has-img-bg"></div>
             <div class="col-lg-6">
@@ -98,20 +108,42 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!--  gallary Section  -->
     <div id="gallary" class="text-center bg-dark text-light has-height-md middle-items wow fadeIn">
-        <h2 class="section-title">Productos</h2>
+        <h2 class="section-title">Categorias</h2>
     </div>
     <div class="gallary row">
+        @foreach ($categories as $category)
         <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
+            <img src="{{ asset('storage/' . $category->image) }}" alt="" class="gallary-img">
+            <a href="#" class="gallary-overlay">
+                <i class="gallary-icon ti-plus"></i>
+            </a>
+            <div class="gallary-item-text"
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
+                <div class="gallary-item-content bg-difuminado">
+                    <h2>{{ $category->name }}</h2>
+                    <p>{{ $category->description }}</p>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        {{-- <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
             <img src="imgs/gallary-1.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
             <a href="#" class="gallary-overlay">
                 <i class="gallary-icon ti-plus"></i>
             </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
+            <div class="gallary-item-text"
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
+                <div class="gallary-item-content">
+                    <h4>Empanadas</h4>
+                    <p>Descripción de las empanadas</p>
+                </div>
+            </div>
+        </div> --}}
+        {{-- <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
             <img src="imgs/gallary-2.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
             <a href="#" class="gallary-overlay">
                 <i class="gallary-icon ti-plus"></i>
@@ -176,7 +208,7 @@
             <a href="#" class="gallary-overlay">
                 <i class="gallary-icon ti-plus"></i>
             </a>
-        </div>
+        </div> --}}
     </div>
 
     <!-- book a table Section  -->
@@ -208,10 +240,12 @@
             <div class="col-sm-7 col-md-4 mb-5">
                 <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#foods" role="tab" aria-controls="pills-home" aria-selected="true">Foods</a>
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#foods"
+                            role="tab" aria-controls="pills-home" aria-selected="true">Foods</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#juices" role="tab" aria-controls="pills-profile" aria-selected="false">Juices</a>
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#juices" role="tab"
+                            aria-controls="pills-profile" aria-selected="false">Juices</a>
                     </li>
                 </ul>
             </div>
@@ -221,31 +255,40 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card bg-transparent border my-3 my-md-0">
-                            <img src="imgs/blog-1.jpg" alt="template by DevCRID http://www.devcrud.com/" class="rounded-0 card-img-top mg-responsive">
+                            <img src="imgs/blog-1.jpg" alt="template by DevCRID http://www.devcrud.com/"
+                                class="rounded-0 card-img-top mg-responsive">
                             <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$5</a></h1>
+                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$5</a>
+                                </h1>
                                 <h4 class="pt20 pb20">Reiciendis Laborum </h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
+                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card bg-transparent border my-3 my-md-0">
-                            <img src="imgs/blog-2.jpg" alt="template by DevCRID http://www.devcrud.com/" class="rounded-0 card-img-top mg-responsive">
+                            <img src="imgs/blog-2.jpg" alt="template by DevCRID http://www.devcrud.com/"
+                                class="rounded-0 card-img-top mg-responsive">
                             <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$12</a></h1>
+                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$12</a>
+                                </h1>
                                 <h4 class="pt20 pb20">Adipisci Totam</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
+                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card bg-transparent border my-3 my-md-0">
-                            <img src="imgs/blog-3.jpg" alt="template by DevCRID http://www.devcrud.com/" class="rounded-0 card-img-top mg-responsive">
+                            <img src="imgs/blog-3.jpg" alt="template by DevCRID http://www.devcrud.com/"
+                                class="rounded-0 card-img-top mg-responsive">
                             <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$8</a></h1>
+                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$8</a>
+                                </h1>
                                 <h4 class="pt20 pb20">Dicta Deserunt</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
+                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
                             </div>
                         </div>
                     </div>
@@ -255,31 +298,40 @@
                 <div class="row">
                     <div class="col-md-4 my-3 my-md-0">
                         <div class="card bg-transparent border">
-                            <img src="imgs/blog-4.jpg" alt="template by DevCRID http://www.devcrud.com/" class="rounded-0 card-img-top mg-responsive">
+                            <img src="imgs/blog-4.jpg" alt="template by DevCRID http://www.devcrud.com/"
+                                class="rounded-0 card-img-top mg-responsive">
                             <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$15</a></h1>
+                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$15</a>
+                                </h1>
                                 <h4 class="pt20 pb20">Consectetur Adipisicing Elit</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
+                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 my-3 my-md-0">
                         <div class="card bg-transparent border">
-                            <img src="imgs/blog-5.jpg" alt="template by DevCRID http://www.devcrud.com/" class="rounded-0 card-img-top mg-responsive">
+                            <img src="imgs/blog-5.jpg" alt="template by DevCRID http://www.devcrud.com/"
+                                class="rounded-0 card-img-top mg-responsive">
                             <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$29</a></h1>
+                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$29</a>
+                                </h1>
                                 <h4 class="pt20 pb20">Ullam Laboriosam</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
+                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 my-3 my-md-0">
                         <div class="card bg-transparent border">
-                            <img src="imgs/blog-6.jpg" alt="template by DevCRID http://www.devcrud.com/" class="rounded-0 card-img-top mg-responsive">
+                            <img src="imgs/blog-6.jpg" alt="template by DevCRID http://www.devcrud.com/"
+                                class="rounded-0 card-img-top mg-responsive">
                             <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$3</a></h1>
+                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$3</a>
+                                </h1>
                                 <h4 class="pt20 pb20">Fugit Ipsam</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
+                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
                             </div>
                         </div>
                     </div>
@@ -330,7 +382,9 @@
             </div>
             <div class="col-md-6 px-5 has-height-lg middle-items">
                 <h3>DIRECCION</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, laboriosam doloremque odio delectus, sunt magnam laborum impedit molestiae, magni quae ipsum, ullam eos! Alias suscipit impedit et, adipisci illo quam.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, laboriosam doloremque odio delectus,
+                    sunt magnam laborum impedit molestiae, magni quae ipsum, ullam eos! Alias suscipit impedit et,
+                    adipisci illo quam.</p>
                 <div class="text-muted">
                     <p><span class="ti-location-pin pr-3"></span> 12345 Fake ST NoWhere, AB Country</p>
                     <p><span class="ti-support pr-3"></span> (123) 456-7890</p>
@@ -358,25 +412,31 @@
         </div>
     </div>
     <div class="bg-dark text-light text-center border-top wow fadeIn">
-        <p class="mb-0 py-3 text-muted small">&copy; Copyright <script>document.write(new Date().getFullYear())</script> Poncho Empanadas Argentinas</p>
+        <p class="mb-0 py-3 text-muted small">&copy; Copyright
+            <script>
+                document.write(new Date().getFullYear())
+            </script> Poncho Empanadas Argentinas
+        </p>
     </div>
     <!-- end of page footer -->
 
-	<!-- core  -->
-    <script src="{{ asset('vendors/jquery/jquery-3.4.1.js')}}"></script>
-    <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.js')}}"></script>
+    <!-- core  -->
+    <script src="{{ asset('vendors/jquery/jquery-3.4.1.js') }}"></script>
+    <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.js') }}"></script>
 
     <!-- bootstrap affix -->
-    <script src="{{ asset('vendors/bootstrap/bootstrap.affix.js')}}"></script>
+    <script src="{{ asset('vendors/bootstrap/bootstrap.affix.js') }}"></script>
 
     <!-- wow.js -->
-    <script src="{{ asset('vendors/wow/wow.js')}}"></script>
-    
+    <script src="{{ asset('vendors/wow/wow.js') }}"></script>
+
     <!-- google maps -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
 
     <!-- FoodHut js -->
-    <script src="{{ asset('js/foodhut.js')}}"></script>
+    <script src="{{ asset('js/foodhut.js') }}"></script>
 
 </body>
+
 </html>

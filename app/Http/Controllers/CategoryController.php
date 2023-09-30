@@ -30,8 +30,22 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        Category::create($request->all()); 
-        return redirect()->route('categories.index');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->store('categories', 'public');
+        }
+
+        /* Category::create($validatedData); */
+        Category::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'image' => $imagePath,
+        ]);
+
+
+
+        return redirect()->route('categories.index')->with('success', 'Categoria creada');
     }
 
     /**
@@ -55,8 +69,24 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->all());
-        return redirect()->route('categories.index');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->store('categories', 'public');
+            
+            $categories = Category::findOrFail($category->id);
+            $categories->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'image' => $imagePath,
+            ]);
+        } else {
+            $categories = Category::findOrFail($category->id);
+            $categories->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+            ]);
+        }
+        return redirect()->route('categories.index')->with('success', 'Categoria modificada con exito');
     }
 
     /**
