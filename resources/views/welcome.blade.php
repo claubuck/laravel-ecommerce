@@ -118,99 +118,22 @@
         @isset($categories)
             @foreach ($categories as $category)
                 <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-                    <img src="{{ asset('storage/' . $category->image) }}" alt="" class="gallary-img">
-                    <a href="#" class="gallary-overlay">
-                        <i class="gallary-icon ti-plus"></i>
-                    </a>
-                    <div class="gallary-item-text"
-                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
-                        <div class="gallary-item-content bg-difuminado">
-                            <h2>{{ $category->name }}</h2>
-                            <p>{{ $category->description }}</p>
+                    <div style="position: relative;">
+                        <img src="{{ asset('storage/' . $category->image) }}" alt="" class="gallary-img">
+                        <a href="#" class="gallary-overlay">
+                            <i class="gallary-icon ti-plus"></i>
+                        </a>
+                        <div class="gallary-item-text"
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
+                            <div class="gallary-item-content bg-difuminado">
+                                <h2>{{ $category->name }}</h2>
+                                <p>{{ $category->description }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         @endisset
-        {{-- <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-1.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-            <div class="gallary-item-text"
-                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
-                <div class="gallary-item-content">
-                    <h4>Empanadas</h4>
-                    <p>Descripción de las empanadas</p>
-                </div>
-            </div>
-        </div> --}}
-        {{-- <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-2.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-3.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-4.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-5.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-6.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-7.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-8.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-9.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-10.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-11.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="imgs/gallary-12.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div> --}}
     </div>
 
     <!-- book a table Section  -->
@@ -377,7 +300,7 @@
     </div> --}}
 
     <!-- CONTACT Section  -->
-    <div id="contact" class="container-fluid bg-dark text-light border-top wow fadeIn">
+    {{-- <div id="contact" class="container-fluid bg-dark text-light border-top wow fadeIn">
         <div class="row">
             <div class="col-md-6 px-0">
                 <div id="map" style="width: 100%; height: 100%; min-height: 400px"></div>
@@ -394,10 +317,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- page footer  -->
-    <div class="container-fluid bg-dark text-light has-height-md middle-items border-top text-center wow fadeIn">
+    {{-- <div class="container-fluid bg-dark text-light has-height-md middle-items border-top text-center wow fadeIn">
         <div class="row">
             <div class="col-sm-4">
                 <h3>EMAIL</h3>
@@ -412,7 +335,7 @@
                 <P class="text-muted">12345 Fake ST NoWhere AB Country</P>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="bg-dark text-light text-center border-top wow fadeIn">
         <p class="mb-0 py-3 text-muted small">&copy; Copyright
             <script>
