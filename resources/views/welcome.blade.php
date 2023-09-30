@@ -115,21 +115,23 @@
         <h2 class="section-title">Categorias</h2>
     </div>
     <div class="gallary row">
-        @foreach ($categories as $category)
-        <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="{{ asset('storage/' . $category->image) }}" alt="" class="gallary-img">
-            <a href="#" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-            <div class="gallary-item-text"
-                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
-                <div class="gallary-item-content bg-difuminado">
-                    <h2>{{ $category->name }}</h2>
-                    <p>{{ $category->description }}</p>
+        @isset($categories)
+            @foreach ($categories as $category)
+                <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
+                    <img src="{{ asset('storage/' . $category->image) }}" alt="" class="gallary-img">
+                    <a href="#" class="gallary-overlay">
+                        <i class="gallary-icon ti-plus"></i>
+                    </a>
+                    <div class="gallary-item-text"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
+                        <div class="gallary-item-content bg-difuminado">
+                            <h2>{{ $category->name }}</h2>
+                            <p>{{ $category->description }}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        @endforeach
+            @endforeach
+        @endisset
         {{-- <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
             <img src="imgs/gallary-1.jpg" alt="template by DevCRID http://www.devcrud.com/" class="gallary-img">
             <a href="#" class="gallary-overlay">
@@ -240,8 +242,8 @@
             <div class="col-sm-7 col-md-4 mb-5">
                 <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#foods"
-                            role="tab" aria-controls="pills-home" aria-selected="true">Foods</a>
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#foods" role="tab"
+                            aria-controls="pills-home" aria-selected="true">Foods</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#juices" role="tab"
