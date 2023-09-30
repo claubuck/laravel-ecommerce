@@ -46,6 +46,8 @@ class DashboardController extends Controller
 
     $cashFlow = CashFlow::where('closed', '<>', 1)->first();
 
+    $saleDetails = collect();
+
 if ($cashFlow) {
     $inicio = $cashFlow->inicio;
     $fin = $cashFlow->fin;
