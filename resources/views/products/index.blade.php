@@ -43,9 +43,9 @@
                                     <td>{{ $product->code }}</td>
                                     <td><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></td>
                                     <td>{{ $product->description }}
-                                        @if ($product->image)
+                                        {{-- @if ($product->image)
                                         <img src="{{ asset('storage/' . $product->image) }}" alt="Imagen de categoría">
-                                    @endif
+                                    @endif --}}
                                     </td>
                                     <td>{{ $product->category ? $product->category->name : 'Sin categoría' }}</td>
                                     <td>{{ $product->stock }}</td>
