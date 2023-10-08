@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Start your development with FoodHut landing page.">
     <meta name="author" content="Devcrud">
-    <title>FoodHut | Free Bootstrap 4.3.x template</title>
+    <title>Poncho Empanadas</title>
 
     <!-- font icons -->
     <link rel="stylesheet" href="{{ asset('vendors/themify-icons/css/themify-icons.css') }}">
@@ -37,11 +37,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#home">Home</a>
                 </li>
-                <li class="nav-item">
+               {{--  <li class="nav-item">
                     <a class="nav-link" href="#about">Sobre Nosotros</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="#gallary">Productos</a>
+                    <a class="nav-link" href="#gallary">Categorias</a>
                 </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#book-table">Book-Table</a>
@@ -58,9 +58,9 @@
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#testmonial">Reviews</a>
                 </li> --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#contact">Contactanos</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     @if (Route::has('login'))
                         <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
@@ -164,6 +164,22 @@
         <div class="row justify-content-center">
             <div class="col-sm-7 col-md-4 mb-5">
                 <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
+                    @foreach ($categories as $category)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $loop->first ? 'active' : '' }}" id="{{ $category->name }}-tab"
+                                data-toggle="pill" href="#{{ $category->name }}" role="tab"
+                                aria-controls="{{ $category->name }}"
+                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                {{ $category->name }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        {{-- <div class="row justify-content-center">
+            <div class="col-sm-7 col-md-4 mb-5">
+                <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#foods" role="tab"
                             aria-controls="pills-home" aria-selected="true">Foods</a>
@@ -174,52 +190,31 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> --}}
         <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="foods" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card bg-transparent border my-3 my-md-0">
-                            <img src="imgs/blog-1.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$5</a>
-                                </h1>
-                                <h4 class="pt20 pb20">Reiciendis Laborum </h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
+            @foreach ($categories as $category)
+                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $category->name }}"
+                    role="tabpanel" aria-labelledby="{{ $category->name }}-tab">
+                    <div class="row">
+                        @foreach ($category->products as $product)
+                            <div class="col-md-4">
+                                <div class="card bg-transparent border my-3 my-md-0">
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="template by DevCRID http://www.devcrud.com/"
+                                        class="rounded-0 card-img-top mg-responsive">
+                                    <div class="card-body">
+                                        <h1 class="text-center mb-4">
+                                            <a href="#" class="badge badge-primary">${{ $product->sell_price }}</a>
+                                        </h1>
+                                        <h4 class="pt20 pb20">{{ $product->name }}</h4>
+                                        <p class="text-white">{{ $product->description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card bg-transparent border my-3 my-md-0">
-                            <img src="imgs/blog-2.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$12</a>
-                                </h1>
-                                <h4 class="pt20 pb20">Adipisci Totam</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card bg-transparent border my-3 my-md-0">
-                            <img src="imgs/blog-3.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$8</a>
-                                </h1>
-                                <h4 class="pt20 pb20">Dicta Deserunt</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="juices" role="tabpanel" aria-labelledby="pills-profile-tab">
+            @endforeach
+            {{-- <div class="tab-pane fade" id="Empanadas" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="row">
                     <div class="col-md-4 my-3 my-md-0">
                         <div class="card bg-transparent border">
@@ -234,36 +229,40 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 my-3 my-md-0">
-                        <div class="card bg-transparent border">
-                            <img src="imgs/blog-5.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$29</a>
-                                </h1>
-                                <h4 class="pt20 pb20">Ullam Laboriosam</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 my-3 my-md-0">
-                        <div class="card bg-transparent border">
-                            <img src="imgs/blog-6.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$3</a>
-                                </h1>
-                                <h4 class="pt20 pb20">Fugit Ipsam</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
+
+    {{--  <div class="tab-content" id="pills-tabContent">
+        @foreach ($categories as $category)
+            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
+                 id="{{ $category->slug }}" 
+                 role="tabpanel" 
+                 aria-labelledby="{{ $category->slug }}-tab">
+                <div class="row">
+                    @foreach ($category->products as $product)
+                        <div class="col-md-4">
+                            <div class="card bg-transparent border my-3 my-md-0">
+                                <img src="imgs/blog-1.jpg" 
+                                     alt="template by DevCRID http://www.devcrud.com/" 
+                                     class="rounded-0 card-img-top mg-responsive">
+                                <div class="card-body">
+                                    <h1 class="text-center mb-4">
+                                        <a href="#" class="badge badge-primary">${{ $product->price }}</a>
+                                    </h1>
+                                    <h4 class="pt20 pb20">{{ $product->name }}</h4>
+                                    <p class="text-white">{{ $product->description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
+    </div> --}}
+
 
     <!-- REVIEWS Section  -->
     {{-- <div id="testmonial" class="container-fluid wow fadeIn bg-dark text-light has-height-lg middle-items">
@@ -356,8 +355,8 @@
     <script src="{{ asset('vendors/wow/wow.js') }}"></script>
 
     <!-- google maps -->
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
+    {{-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script> --}}
 
     <!-- FoodHut js -->
     <script src="{{ asset('js/foodhut.js') }}"></script>
