@@ -4,9 +4,11 @@ use App\Http\Controllers\CashFlowController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ShopingCardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +25,10 @@ use Illuminate\Support\Facades\Route;
 /* Route::get('/', function () {
     return view('welcome');
 }); */
+
 Route::get('/', [IndexController::class, 'index']);
+Route::get("shoping-card", [ShopingCardController::class, "shopingCard"])->name("shoping-card");
+Route::post("store-shoping-card", [ShopingCardController::class, "storeShopingCard"]);
 
 /* Route::get('/dashboard', function () {
     return view('dashboard');
@@ -35,20 +40,22 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('sales',SaleController::class)->names('sales');
-    Route::get("sales/charts",[SaleController::class, "chartData"])->name("sales.chartData");
-    Route::get("sales-report",[SaleController::class, "report"])->name("sales-report");
-    Route::get("sales/print/{sale}",[SaleController::class, "print"])->name("sale-print");
-    Route::get("sales/pdf/{sale}",[SaleController::class, "generatePdf"])->name("sale-print-pdf");
+    Route::resource('sales', SaleController::class)->names('sales');
+    Route::get("sales/charts", [SaleController::class, "chartData"])->name("sales.chartData");
+    Route::get("sales-report", [SaleController::class, "report"])->name("sales-report");
+    Route::get("sales/print/{sale}", [SaleController::class, "print"])->name("sale-print");
+    Route::get("sales/pdf/{sale}", [SaleController::class, "generatePdf"])->name("sale-print-pdf");
 
-    Route::resource('products',ProductController::class)->names('products');
-    Route::get("get_products_by_id",[ProductController::class, "get_products_by_id"])->name("get_products_by_id");
-    Route::get("get_products_by_barcode",[ProductController::class, "get_products_by_barcode"])->name("get_products_by_barcode");
+    Route::resource('products', ProductController::class)->names('products');
+    Route::get("get_products_by_id", [ProductController::class, "get_products_by_id"])->name("get_products_by_id");
+    Route::get("get_products_by_barcode", [ProductController::class, "get_products_by_barcode"])->name("get_products_by_barcode");
 
-    Route::resource('categories',CategoryController::class)->names('categories');
+    Route::resource('categories', CategoryController::class)->names('categories');
 
-    Route::resource('cash-flow',CashFlowController::class)->names('cash-flow');
-    Route::get("cash-reports",[CashFlowController::class, "reports"])->name("cash-reports.listing");
+    Route::resource('cash-flow', CashFlowController::class)->names('cash-flow');
+    Route::get("cash-reports", [CashFlowController::class, "reports"])->name("cash-reports.listing");
+
+    Route::resource('orders', OrderController::class)->names('orders');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
