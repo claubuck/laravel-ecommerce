@@ -16,6 +16,10 @@
     <!-- Bootstrap + FoodHut main styles -->
     <link rel="stylesheet" href="{{ asset('css/foodhut.css') }}">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
@@ -37,7 +41,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#home">Home</a>
                 </li>
-               {{--  <li class="nav-item">
+                {{--  <li class="nav-item">
                     <a class="nav-link" href="#about">Sobre Nosotros</a>
                 </li> --}}
                 <li class="nav-item">
@@ -199,11 +203,13 @@
                         @foreach ($category->products as $product)
                             <div class="col-md-4">
                                 <div class="card bg-transparent border my-3 my-md-0">
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="template by DevCRID http://www.devcrud.com/"
+                                    <img src="{{ asset('storage/' . $product->image) }}"
+                                        alt="template by DevCRID http://www.devcrud.com/"
                                         class="rounded-0 card-img-top mg-responsive">
                                     <div class="card-body">
                                         <h1 class="text-center mb-4">
-                                            <a href="#" class="badge badge-primary">${{ $product->sell_price }}</a>
+                                            <a href="#"
+                                                class="badge badge-primary">${{ $product->sell_price }}</a>
                                         </h1>
                                         <h4 class="pt20 pb20">{{ $product->name }}</h4>
                                         <p class="text-white">{{ $product->description }}</p>
@@ -299,8 +305,65 @@
     </div> --}}
 
     <!-- CONTACT Section  -->
-    {{-- <div id="contact" class="container-fluid bg-dark text-light border-top wow fadeIn">
-        <div class="row">
+    <div id="contact" class="container-fluid bg-dark text-light border-top wow fadeIn">
+        <div class="container">
+            <div class="row">
+                <!-- Elementos generados a partir del JSON -->
+                <main id="items" class="col-sm-8 row"></main>
+                <!-- Carrito -->
+                <aside class="col-sm-4">
+                    <h2>Orden de compra</h2>
+                    <!-- Elementos del carrito -->
+                    <ul id="carrito" class="list-group"></ul>
+                    <hr>
+                    <!-- Precio total -->
+                    <p class="text-right">Total: <span id="total"></span>&euro;</p>
+                    <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+                    <button id="boton-abrir-modal" class="btn btn-success">Enviar Pedido</button>
+
+                </aside>
+            </div>
+
+            {{-- Modal --}}
+
+            <!-- Modal para ingresar información -->
+            <div class="modal fade" id="modalInformacion" tabindex="-1" role="dialog"
+                aria-labelledby="modalInformacionLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="text-secondary" id="modalInformacionLabel">Ingresa tus datos para enviar el pedido</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Aquí puedes agregar tus campos de nombre, teléfono y dirección -->
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" class="form-control" id="telefono"
+                                    placeholder="Tu número de teléfono">
+                            </div>
+                            <div class="form-group">
+                                <label for="direccion">Dirección:</label>
+                                <input type="text" class="form-control" id="direccion"
+                                    placeholder="Tu dirección">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="boton-enviar-pedido-modal">Enviar
+                                Pedido</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="row">
             <div class="col-md-6 px-0">
                 <div id="map" style="width: 100%; height: 100%; min-height: 400px"></div>
             </div>
@@ -315,8 +378,10 @@
                     <p><span class="ti-email pr-3"></span>info@website.com</p>
                 </div>
             </div>
-        </div>
-    </div> --}}
+        </div> --}}
+    </div>
+
+
 
     <!-- page footer  -->
     {{-- <div class="container-fluid bg-dark text-light has-height-md middle-items border-top text-center wow fadeIn">
@@ -360,6 +425,15 @@
 
     <!-- FoodHut js -->
     <script src="{{ asset('js/foodhut.js') }}"></script>
+
+    {{-- shoping-card --}}
+    <script type="module" src="{{ asset('js/shoping/shoping-card.js') }}"></script>
+
+    {{-- sweet alert --}}
+    <script src="{{ asset('js/sweetalert.js') }}"></script>
+
+
+
 
 </body>
 
