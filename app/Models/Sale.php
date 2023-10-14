@@ -15,6 +15,7 @@ class Sale extends Model
         'card',
         'total',
         'status',
+        'type',
         
     ];
     public function user(){
@@ -22,5 +23,10 @@ class Sale extends Model
     }
     public function saleDetails(){
         return $this->hasMany(saleDetail::class);
+    }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class);
     }
 }

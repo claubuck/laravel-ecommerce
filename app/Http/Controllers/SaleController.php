@@ -50,6 +50,7 @@ class SaleController extends Controller
          /* return $request; */
         $user = Auth::user();
         $sale = $user->sales()->create([
+            'type' => 'Local',
             'total' => $request->input('total'),
             'cash' => $request->input('efec'),
             'card' => $request->input('card'),
