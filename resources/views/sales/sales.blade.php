@@ -34,6 +34,7 @@
 
 <body>
     <h1>Detalles de la venta</h1>
+    <p style="text-align: right;"><strong>Número:</strong> {{ str_pad($sale->id, 8, '0', STR_PAD_LEFT) }}</p>
 	<p><strong>Vendedor:</strong> {{$sale->user->name}}, {{$sale->user->last_name}}</p>
     <p><strong>Fecha:</strong> {{ $sale->sale_date }}</p>
     <p><strong>Total:</strong> {{ $sale->total }}</p>

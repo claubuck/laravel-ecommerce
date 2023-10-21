@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::get("cash-reports", [CashFlowController::class, "reports"])->name("cash-reports.listing");
 
     Route::resource('orders', OrderController::class)->names('orders');
+    Route::get("orders/pdf/{order}", [OrderController::class, "generatePdf"])->name("order-print-pdf");
 });
 
 require __DIR__ . '/auth.php';

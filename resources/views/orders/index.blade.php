@@ -13,16 +13,52 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <form method="GET" action="{{ route('orders.index') }}">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="search">Buscar:</label>
+                            <input type="text" name="search" id="search" class="form-control"
+                                value="{{ request('search') }}">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="number">Buscar por N° pedido:</label>
+                            <input type="text" name="number" id="number" class="form-control"
+                                value="{{ request('number') }}">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="status">Filtrar por estado:</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="">Todos</option>
+                                <option value="Nuevo" {{ request('status') == 'Nuevo' ? 'selected' : '' }}>Nuevo</option>
+                                <option value="En preparación"
+                                    {{ request('status') == 'En preparación' ? 'selected' : '' }}>En preparación</option>
+                                <option value="Enviado" {{ request('status') == 'Enviado' ? 'selected' : '' }}>Enviado
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="submit" class="invisible">Buscar</label>
+                            <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Numero</th>
+                            <th>Número 
+                                <a href="{{ route('orders.index', ['sort' => 'asc']) }}">
+                                    <i class="fas fa-arrow-up"></i>
+                                </a>
+                                <a href="{{ route('orders.index', ['sort' => 'desc']) }}">
+                                    <i class="fas fa-arrow-down"></i>
+                                </a>
+                            </th>
                             <th>Fecha y Hora</th>
                             <th>Estado</th>
                             <th>Cliente</th>
                             <th>Numero</th>
                             <th>Direccion</th>
-                            <th>Total</th>                          
+                            <th>Total</th>
                             <th>Acciones</th>
 
                         </tr>
@@ -59,9 +95,9 @@
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                             <a href="{{ route('orders.show', $order) }}"
                                                 class="btn btn-outline-primary">Detalle</a>
-                                            {{-- <a href="{{ route('order-print-pdf',$order->id) }}"
-                                                class="btn btn-outline-primary">Imprimir</a> --}}
-                                             <button type="submit" class="btn btn-outline-primary">Eliminar</button>
+                                            <a href="{{ route('order-print-pdf', $order->id) }}"
+                                                class="btn btn-outline-primary">Imprimir</a>
+                                            <button type="submit" class="btn btn-outline-primary">Eliminar</button>
                                         </div>
                                     </form>
                                 </td>
@@ -70,9 +106,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                    {{ $orders->links() }}
+                </div>
             </div>
         </div>
     </div>
-
-    
 @endsection

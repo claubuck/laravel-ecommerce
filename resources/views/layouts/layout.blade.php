@@ -15,6 +15,9 @@
 
     <!-- Custom styles for this page -->
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     {{-- <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}"> --}}
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/6819/6819255.png">
 
@@ -109,11 +112,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Utilities:</h6> --}}
                         <a class="collapse-item" href="{{ route('products.index') }}">Productos</a>
-                        <a class="collapse-item" href="{{route('categories.index')}}">Categorias</a>
+                        <a class="collapse-item" href="{{ route('categories.index') }}">Categorias</a>
                         {{-- <a class="collapse-item" href="#">Stock</a> --}}
                         <a class="collapse-item" href="#">Reportes</a>
-                        
-                        
+
+
 
                     </div>
                 </div>
@@ -361,7 +364,7 @@
                                     } else {
                                         $userLastName = '';
                                     }
-                                    
+
                                 @endphp
 
 

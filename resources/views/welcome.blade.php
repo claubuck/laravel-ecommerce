@@ -115,30 +115,31 @@
     </div> --}}
 
     <!--  gallary Section  -->
-    <div id="gallary" class="text-center bg-dark text-light has-height-md middle-items wow fadeIn">
-        <h2 class="section-title">Categorias</h2>
-    </div>
-    <div class="gallary row">
-        @isset($categories)
-            @foreach ($categories as $category)
-                <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
-                    <div style="position: relative;">
-                        <img src="{{ asset('storage/' . $category->image) }}" alt="" class="gallary-img">
-                        <a href="#" class="gallary-overlay">
-                            <i class="gallary-icon ti-plus"></i>
-                        </a>
-                        <div class="gallary-item-text"
-                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
-                            <div class="gallary-item-content bg-difuminado">
-                                <h2>{{ $category->name }}</h2>
-                                <p>{{ $category->description }}</p>
+    <div id="gallary" class="text-center has-height-md middle-items wow fadeIn">
+        <h2 class="text-dark">Categorias</h2>
+        <div class="gallary row">
+            @isset($categories)
+                @foreach ($categories as $category)
+                    <div class="col-sm-6 col-lg-3 gallary-item wow fadeIn">
+                        <div style="position: relative;">
+                            <img src="{{ asset('storage/' . $category->image) }}" alt="" class="gallary-img">
+                            <a href="#" class="gallary-overlay">
+                                <i class="gallary-icon ti-plus"></i>
+                            </a>
+                            <div class="gallary-item-text"
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;">
+                                <div class="gallary-item-content bg-difuminado">
+                                    <h2>{{ $category->name }}</h2>
+                                    <p>{{ $category->description }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        @endisset
+                @endforeach
+            @endisset
+        </div>
     </div>
+
 
     <!-- book a table Section  -->
     {{-- <div class="container-fluid has-bg-overlay text-center text-light has-height-lg middle-items" id="book-table">
@@ -163,82 +164,18 @@
     </div> --}}
 
     <!-- BLOG Section  -->
-    <div id="blog" class="container-fluid bg-dark text-light py-5 text-center wow fadeIn">
-        <h2 class="section-title py-5">PRODUCTOS DISPONIBLES</h2>
-        <div class="row justify-content-center">
-            <div class="col-sm-7 col-md-4 mb-5">
-                <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
-                    @foreach ($categories as $category)
-                        <li class="nav-item">
-                            <a class="nav-link {{ $loop->first ? 'active' : '' }}" id="{{ $category->name }}-tab"
-                                data-toggle="pill" href="#{{ $category->name }}" role="tab"
-                                aria-controls="{{ $category->name }}"
-                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                                {{ $category->name }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-        {{-- <div class="row justify-content-center">
-            <div class="col-sm-7 col-md-4 mb-5">
-                <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#foods" role="tab"
-                            aria-controls="pills-home" aria-selected="true">Foods</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#juices" role="tab"
-                            aria-controls="pills-profile" aria-selected="false">Juices</a>
-                    </li>
-                </ul>
-            </div>
-        </div> --}}
-        <div class="tab-content" id="pills-tabContent">
-            @foreach ($categories as $category)
-                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $category->name }}"
-                    role="tabpanel" aria-labelledby="{{ $category->name }}-tab">
-                    <div class="row">
-                        @foreach ($category->products as $product)
-                            <div class="col-md-4">
-                                <div class="card bg-transparent border my-3 my-md-0">
-                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                        alt="template by DevCRID http://www.devcrud.com/"
-                                        class="rounded-0 card-img-top mg-responsive">
-                                    <div class="card-body">
-                                        <h1 class="text-center mb-4">
-                                            <a href="#"
-                                                class="badge badge-primary">${{ $product->sell_price }}</a>
-                                        </h1>
-                                        <h4 class="pt20 pb20">{{ $product->name }}</h4>
-                                        <p class="text-white">{{ $product->description }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endforeach
-            {{-- <div class="tab-pane fade" id="Empanadas" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div class="row">
-                    <div class="col-md-4 my-3 my-md-0">
-                        <div class="card bg-transparent border">
-                            <img src="imgs/blog-4.jpg" alt="template by DevCRID http://www.devcrud.com/"
-                                class="rounded-0 card-img-top mg-responsive">
-                            <div class="card-body">
-                                <h1 class="text-center mb-4"><a href="#" class="badge badge-primary">$15</a>
-                                </h1>
-                                <h4 class="pt20 pb20">Consectetur Adipisicing Elit</h4>
-                                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                                    provident illum officiis fugit laudantium voluptatem sit iste delectus qui ex. </p>
-                            </div>
-                        </div>
-                    </div>
+    <div id="blog" class="container-fluid text-light py-5 text-center wow fadeIn">
+        <h2 class="text-dark py-5">PRODUCTOS DISPONIBLES</h2>
 
-                </div>
-            </div> --}}
-        </div>
+        <ul class="nav nav-tabs" role="tablist">
+            @foreach ($categories as $category)
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="tab"
+                        data-id="{{ $category->id }}" href="#{{ $category->name }}" role="tab"
+                        aria-controls="{{ $category->name }}" aria-selected="true">{{ $category->name }}</a>
+                </li>
+            @endforeach
+        </ul>
     </div>
 
     {{--  <div class="tab-content" id="pills-tabContent">
@@ -304,65 +241,70 @@
         </div>
     </div> --}}
 
-    <!-- CONTACT Section  -->
-    <div id="contact" class="container-fluid bg-dark text-light border-top wow fadeIn">
-        <div class="container">
-            <div class="row">
-                <!-- Elementos generados a partir del JSON -->
-                <main id="items" class="col-sm-8 row"></main>
-                <!-- Carrito -->
-                <aside class="col-sm-4">
-                    <h2>Orden de compra</h2>
-                    <!-- Elementos del carrito -->
-                    <ul id="carrito" class="list-group"></ul>
-                    <hr>
-                    <!-- Precio total -->
-                    <p class="text-right">Total: <span id="total"></span>&euro;</p>
-                    <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
-                    <button id="boton-abrir-modal" class="btn btn-success">Enviar Pedido</button>
+    <div class="container">
+        <div class="row col-12">
+            <!-- Elementos generados a partir del JSON -->
+            <main id="items" class="col-9 col-sm-9 row"></main>
+            <!-- Carrito -->
+            <aside class="col-sm-3">
+                <h2>Orden de compra</h2>
+                <!-- Elementos del carrito -->
+                <ul id="carrito" class="list-group"></ul>
+                <hr>
+                <!-- Precio total -->
+                <p class="text-right">Total: <span id="total"></span>&euro;</p>
+                <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+                <button id="boton-abrir-modal" class="btn btn-success">Enviar Pedido</button>
 
-                </aside>
-            </div>
+            </aside>
+            <button class="btn btn-outline-primary" type="button" id="anterior"><< Anterior</button>
+            <button class="btn btn-outline-primary" type="button" id="siguiente">Siguiente >></button>
 
-            {{-- Modal --}}
+        </div>
+         <br>
+        {{-- Modal --}}
 
-            <!-- Modal para ingresar información -->
-            <div class="modal fade" id="modalInformacion" tabindex="-1" role="dialog"
-                aria-labelledby="modalInformacionLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="text-secondary" id="modalInformacionLabel">Ingresa tus datos para enviar el pedido</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+        <!-- Modal para ingresar información -->
+        <div class="modal fade" id="modalInformacion" tabindex="-1" role="dialog"
+            aria-labelledby="modalInformacionLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="text-secondary" id="modalInformacionLabel">Ingresa tus datos para enviar el pedido
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Aquí puedes agregar tus campos de nombre, teléfono y dirección -->
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
                         </div>
-                        <div class="modal-body">
-                            <!-- Aquí puedes agregar tus campos de nombre, teléfono y dirección -->
-                            <div class="form-group">
-                                <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="telefono">Teléfono:</label>
-                                <input type="tel" class="form-control" id="telefono"
-                                    placeholder="Tu número de teléfono">
-                            </div>
-                            <div class="form-group">
-                                <label for="direccion">Dirección:</label>
-                                <input type="text" class="form-control" id="direccion"
-                                    placeholder="Tu dirección">
-                            </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" class="form-control" id="telefono"
+                                placeholder="Ejemplo: 1234567890">
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" id="boton-enviar-pedido-modal">Enviar
-                                Pedido</button>
+                        <div class="form-group">
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" class="form-control" id="direccion" placeholder="Tu dirección">
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="boton-enviar-pedido-modal">Enviar
+                            Pedido</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- CONTACT Section  -->
+    <div id="contact" class="container-fluid bg-dark text-light border-top wow fadeIn">
+
         {{-- <div class="row">
             <div class="col-md-6 px-0">
                 <div id="map" style="width: 100%; height: 100%; min-height: 400px"></div>

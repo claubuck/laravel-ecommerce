@@ -12,13 +12,17 @@ use Illuminate\Http\Request;
 
 class ShopingCardController extends Controller
 {
-    public function shopingCard()
-    {
-        //$productos = Category::with('products')->get();
-        
-        $productos = Product::get();
-        return response()->json($productos);
+    public function shopingCard(Request $request)
+{
+    $query = Product::query();
+
+    // Verifica si se seleccionó una categoría y agrega la condición de filtrado
+    if ($request->has('category')) {
+        $query->where('category_id', $request->input('category'));
     }
+    $productos = $query->paginate($request->per_page);
+    return response()->json($productos);
+}
 
     public function storeShopingCard(Request $request)
     { 

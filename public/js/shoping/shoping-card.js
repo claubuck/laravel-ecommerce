@@ -1,18 +1,50 @@
-// Importa las funciones de validación desde validaciones.js
-import { validarPedido } from './validaciones.js';
-
+import { validarPedido } from './validaciones.js'; // Importa las funciones de validación desde validaciones.js
 
 let baseDeDatos = [];
-fetch('/shoping-card')
-    .then(response => response.json())
-    .then(data => {
-        baseDeDatos = data;
-        console.log('Productos cargados desde la API:', baseDeDatos);
+let currentPage;
+let totalPages;
+const productsPerPage = 6; // La cantidad de productos que deseas mostrar por página
+const pagina = 1; // La página que deseas cargar inicialmente
+const categoria = 1; // La categoría que deseas cargar inicialmente
+
+function fetchData(page, categoria) {
+    const url = `/shoping-card?page=${page}&per_page=${productsPerPage}&category=${categoria}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        baseDeDatos = data.data;
+        currentPage = data.current_page;
+        totalPages = data.last_page;
+        console.log('Productos cargados desde la API:', data);
         renderizarProductos();
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error('Error al cargar los productos desde la API:', error);
-    });
+      });
+  }
+
+  fetchData(pagina, categoria); // Realiza la primera solicitud para cargar la página inicial
+
+// Luego, podrías tener funciones o eventos para cargar las páginas anteriores o siguientes según sea necesario
+function irAAnteriorPagina() {
+    if (currentPage > 1) {
+        currentPage--;
+        fetchData(currentPage);
+    }
+}
+
+function irASiguientePagina() {
+    if (currentPage < totalPages) { // Asegúrate de que tienes totalPages definido en tu código
+        currentPage++;
+        fetchData(currentPage);
+    }
+}
+
+function filtrarPorCategoria(categoryId) {
+
+    // Debes enviar una solicitud al servidor para obtener productos de la categoría seleccionada
+    fetchData(pagina, categoryId);
+}
 
 let carrito = [];
 const divisa = '€';
@@ -27,10 +59,11 @@ const DOMbotonVaciar = document.querySelector('#boton-vaciar');
  * Dibuja todos los productos a partir de la base de datos. No confundir con el carrito
  */
 function renderizarProductos() {
+    DOMitems.innerHTML = '';
     baseDeDatos.forEach((info) => {
         // Estructura
         const miNodo = document.createElement('div');
-        miNodo.classList.add('card', 'col-sm-4');
+        miNodo.classList.add('card','col-md-3');
         miNodo.style.backgroundColor = 'white';
         miNodo.style.marginRight = '1rem';
         miNodo.style.textDecorationColor = 'black';
@@ -55,7 +88,7 @@ function renderizarProductos() {
         // Boton 
         const miNodoBoton = document.createElement('button');
         miNodoBoton.classList.add('btn', 'btn-primary');
-        miNodoBoton.textContent = '+';
+        miNodoBoton.textContent = '+ añadir al carrito';
         miNodoBoton.setAttribute('marcador', info.id);
         miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
         // Insertamos
@@ -81,7 +114,7 @@ function renderizarProductos() {
 
 function anyadirProductoAlCarrito(evento) {
     const productoId = evento.target.getAttribute('marcador');
-    
+
     // Verificar si el producto ya está en el carrito
     const cantidadEnCarrito = carrito.filter(item => item === productoId).length;
 
@@ -99,7 +132,7 @@ function anyadirProductoAlCarrito(evento) {
         Swal.fire({
             icon: 'error',
             title: 'No hay nas stock de este producto',
-          })
+        })
     }
 }
 
@@ -187,23 +220,23 @@ function vaciarCarrito() {
  */
 let detail = [];
 function parcearCarrito() {
-// Tu array original
-const ids = carrito;
+    // Tu array original
+    const ids = carrito;
 
-// Objeto para almacenar la cantidad de cada ID
-const idCounts = {};
+    // Objeto para almacenar la cantidad de cada ID
+    const idCounts = {};
 
-// Itera sobre el array y cuenta las repeticiones de cada ID
-ids.forEach((id) => {
-    if (idCounts[id]) {
-        idCounts[id].quantity++;
-    } else {
-        idCounts[id] = { id: id, quantity: 1 };
-    }
-});
+    // Itera sobre el array y cuenta las repeticiones de cada ID
+    ids.forEach((id) => {
+        if (idCounts[id]) {
+            idCounts[id].quantity++;
+        } else {
+            idCounts[id] = { id: id, quantity: 1 };
+        }
+    });
 
-// Convierte el objeto en un array de carrito y actualiza la variable global detail
-detail = Object.values(idCounts);
+    // Convierte el objeto en un array de carrito y actualiza la variable global detail
+    detail = Object.values(idCounts);
 }
 
 /**
@@ -236,7 +269,22 @@ function guardarCarrito() {
             response.json().then(data => {
                 console.log(data);
             });
-            // window.location.href = '/'; // redirecciona al index
+
+            Swal.fire({
+                title: 'Gracias!',
+                text: "Pronto nos pondremos en contacto contigo para confirmar tu pedido",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ok'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/'; // redirecciona al index
+                }
+              })
+
+            
 
         })
         .then(data => {
@@ -250,9 +298,19 @@ function guardarCarrito() {
 
 // Eventos
 DOMbotonVaciar.addEventListener('click', vaciarCarrito);
+document.getElementById('anterior').addEventListener('click', irAAnteriorPagina);
+document.getElementById('siguiente').addEventListener('click', irASiguientePagina);
 
 document.getElementById('boton-abrir-modal').addEventListener('click', function () {
     $('#modalInformacion').modal('show'); // Abre el modal
+});
+
+// Asocia un manejador de eventos a las pestañas
+document.querySelectorAll('.nav-link').forEach(tab => {
+    tab.addEventListener('click', function(event) {
+        const categoryId = event.target.getAttribute('data-id');
+        filtrarPorCategoria(categoryId);
+    });
 });
 
 //guardar datos del modal

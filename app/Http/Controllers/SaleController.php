@@ -174,6 +174,6 @@ class SaleController extends Controller
         $pdf->loadHtml($view);
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
-        return $pdf->stream('venta.pdf');
+        return $pdf->stream('venta_'.$id.'.pdf');
     }
 }
