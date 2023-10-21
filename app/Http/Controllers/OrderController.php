@@ -48,7 +48,7 @@ class OrderController extends Controller
             }
         } else {
             // Ordenar de forma predeterminada (puedes cambiar esto)
-            $orders->orderBy('id', 'asc');
+            $orders->orderBy('id', 'desc');
         }
 
         $orders = $orders->paginate(10); // Paginar los resultados
