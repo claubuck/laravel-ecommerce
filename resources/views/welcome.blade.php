@@ -20,6 +20,10 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="{{ asset('fontawesome6/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('fontawesome6/css/all.min.css') }}">
+
+
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
@@ -41,12 +45,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#home">Home</a>
                 </li>
-                {{--  <li class="nav-item">
+                 <li class="nav-item">
                     <a class="nav-link" href="#about">Sobre Nosotros</a>
-                </li> --}}
-                <li class="nav-item">
-                    <a class="nav-link" href="#gallary">Categorias</a>
                 </li>
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="#gallary">Categorias</a>
+                </li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#book-table">Book-Table</a>
                 </li> --}}
@@ -62,9 +66,9 @@
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#testmonial">Reviews</a>
                 </li> --}}
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="#contact">Contactanos</a>
-                </li> --}}
+                </li>
                 <li class="nav-item">
                     @if (Route::has('login'))
                         <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
@@ -96,26 +100,10 @@
         </div>
     </header>
 
-    <!--  About Section  -->
-    {{-- <div id="about" class="container-fluid wow fadeIn" id="about"data-wow-duration="1.5s">
-        <div class="row">
-            <div class="col-lg-6 has-img-bg"></div>
-            <div class="col-lg-6">
-                <div class="row justify-content-center">
-                    <div class="col-sm-8 py-5 my-5">
-                        <h2 class="mb-4">Sobre Nosotros</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, quisquam accusantium nostrum modi, nemo, officia veritatis ipsum facere maxime assumenda voluptatum enim! Labore maiores placeat impedit, vero sed est voluptas!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita alias dicta autem, maiores doloremque quo perferendis, ut obcaecati harum, <br><br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum necessitatibus iste,
-                        nulla recusandae porro minus nemo eaque cum repudiandae quidem voluptate magnam voluptatum? <br>Nobis, saepe sapiente omnis qui eligendi pariatur. quis voluptas. Assumenda facere adipisci quaerat. Illum doloremque quae omnis vitae.</p>
-                        <p><b>Lonsectetur adipisicing elit. Blanditiis aspernatur, ratione dolore vero asperiores explicabo.</b></p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ab itaque modi, reprehenderit fugit soluta, molestias optio repellat incidunt iure sed deserunt nemo magnam rem explicabo vitae. Cum, nostrum, quidem.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+
 
     <!--  gallary Section  -->
-    <div id="gallary" class="text-center has-height-md middle-items wow fadeIn">
+    {{-- <div id="gallary" class="text-center has-height-md middle-items wow fadeIn">
         <h2 class="text-dark">Categorias</h2>
         <div class="gallary row">
             @isset($categories)
@@ -138,7 +126,7 @@
                 @endforeach
             @endisset
         </div>
-    </div>
+    </div> --}}
 
 
     <!-- book a table Section  -->
@@ -177,6 +165,8 @@
             @endforeach
         </ul>
     </div>
+
+
 
     {{--  <div class="tab-content" id="pills-tabContent">
         @foreach ($categories as $category)
@@ -257,11 +247,12 @@
                 <button id="boton-abrir-modal" class="btn btn-success">Enviar Pedido</button>
 
             </aside>
-            <button class="btn btn-outline-primary" type="button" id="anterior"><< Anterior</button>
-            <button class="btn btn-outline-primary" type="button" id="siguiente">Siguiente >></button>
+            <button class="btn btn-outline-primary" type="button" id="anterior">
+                << Anterior</button>
+                    <button class="btn btn-outline-primary" type="button" id="siguiente">Siguiente >></button>
 
         </div>
-         <br>
+        <br>
         {{-- Modal --}}
 
         <!-- Modal para ingresar información -->
@@ -302,10 +293,189 @@
         </div>
     </div>
 
+    <!--  About Section  -->
+    <div id="about" class="container-fluid wow fadeIn" id="about"data-wow-duration="1.5s">
+        <h1 class="mb-4 text-center">Sobre Nosotros</h1>
+
+        <div class="container mt-4">
+            <h2 class="heading">Trabajamos con marcas de primera calidad</h2>
+            <p class="paragraph">Trabajamos con productos de marcas nacionales, concienciados y apoyando el desarrollo
+                de productores locales que elaboran productos de una calidad excelente.</p>
+            <div class="row mt-4 text-center">
+                <div class="col-md-3">
+                    <i class="fa-solid fa-handshake fa-5x" style="color: #fbc246;"></i>
+                    <p class="paragraph"><h3>SOSTENIBLE</h3></p>
+                </div>
+                <div class="col-md-3">
+                    <i class="fa-solid fa-medal fa-5x" style="color: #fbc246;"></i>
+                    <p class="paragraph"><h3>DE CALIDAD</h3></p>
+                </div>
+                <div class="col-md-3">
+                    <i class="fa-solid fa-heart-circle-check fa-5x" style="color: #fbc246;"></i>
+                    <p class="paragraph"><h3>HECHAS CON AMOR</h3></p>
+                </div>
+                <div class="col-md-3">
+                    <i class="fa-solid fa-bowl-food fa-5x" style="color: #fbc246;"></i>
+                    <p class="paragraph"><h3>AUTÉNTICAS</h3></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 has-img-bg"></div>
+            <div class="col-lg-6">
+                <div class="row justify-content-center">
+                    <div class="col-sm-8 py-5 my-5">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, quisquam accusantium
+                            nostrum modi, nemo, officia veritatis ipsum facere maxime assumenda voluptatum enim! Labore
+                            maiores placeat impedit, vero sed est voluptas!Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Expedita alias dicta autem, maiores doloremque quo perferendis, ut
+                            obcaecati harum, <br><br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
+                            necessitatibus iste,
+                            nulla recusandae porro minus nemo eaque cum repudiandae quidem voluptate magnam voluptatum?
+                            <br>Nobis, saepe sapiente omnis qui eligendi pariatur. quis voluptas. Assumenda facere
+                            adipisci quaerat. Illum doloremque quae omnis vitae.
+                        </p>
+                        <p><b>Lonsectetur adipisicing elit. Blanditiis aspernatur, ratione dolore vero asperiores
+                                explicabo.</b></p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ab itaque modi, reprehenderit
+                            fugit soluta, molestias optio repellat incidunt iure sed deserunt nemo magnam rem explicabo
+                            vitae. Cum, nostrum, quidem.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  add section  -->
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Columna para el texto -->
+            <div class="section col-md-10 float-right pl-4">
+                <h2 class="heading">Una propuesta imparable</h2>
+                <p class="paragraph">Jimmy Churri nace en respuesta a una necesidad de nuestra gente: comer diferente,
+                    de
+                    forma sencilla y con un producto saludable elaborado al horno. Si a esto le añades que puedes
+                    comerlas
+                    al momento o llevártelas a casa y compartirlas con quién quieras, estamos hablando de un producto
+                    perfecto para nuestro día a día.</p>
+                <p class="paragraph">Además, completamos el servicio llevándotelas donde quieras. El delivery es una de
+                    las
+                    claves que nuestro público más valora.</p>
+
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="section col-md-6 float-left">
+                        <h2 class="heading mt-4">Claves del negocio</h2>
+                        <ul class="list-disc ml-6">
+                            <li>Franquicia Rentable</li>
+                            <li>Fácil gestión</li>
+                            <li>Empanadas</li>
+                            <li>Formación continuada</li>
+                            <li>Baja inversión</li>
+                            <li>Tendencia en alza</li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="section col-md-6 float-right">
+                        <h2 class="heading mt-4">Organización y expansión</h2>
+                        <ul class="list-disc ml-6">
+                            <li>Creación de empresa: 2021</li>
+                            <li>Inicio de la expansión: 2022</li>
+                            <li>Red de España: 2</li>
+                            <li>Nacionalidad: España</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- Columna para la imagen -->
+            <img src="imgs/blog-1.jpg" alt="template by DevCRID http://www.devcrud.com/"
+                class="rounded-0 card-img-top mg-responsive">
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <h1 class="text-center">Unete a nosotros</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="section col-md-2 float-left">
+                    <h2><i class="fa-solid fa-chart-line fa-fade fa-2xl" style="color: #f9d51f;"></i></h2>
+                </div>
+                <div class="section col-md-10 float-right">
+                    <h2 class="heading">Tendencia al alza</h2>
+                    <p class="paragraph">Crece la demanda por una comida de calidad, que puedas comer al momento y en
+                        cualquier parte. Saludable, fácil de compartir y con la posibilidad de enviar a domicilio.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="section col-md-2 float-left">
+                    <h2><i class="fa-solid fa-people-roof fa-fade fa-2xl" style="color: #f9d51f;"></i></h2>
+                </div>
+                <div class="section col-md-10 float-right">
+                    <h2 class="heading">Somos una familia</h2>
+                    <p class="paragraph">Jimmy Churri es un concepto de tienda de empanadas argentinas abierto y con la
+                        idea de crecer juntos. Contamos contigo para cambiar el mundo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="section col-md-2 float-left">
+                    <h2><i class="fa-solid fa-money-bill-trend-up fa-fade fa-2xl" style="color: #f9d51f;"></i></h2>
+                </div>
+                <div class="section col-md-10 float-right">
+                    <h2 class="heading">Inversión mínima</h2>
+                    <p class="paragraph">Nuestro modelo no requiere de grandes inversiones. Tenemos un plan de negocio
+                        rentable y escalable para ti.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="section col-md-2 float-left">
+                    <h2><i class="fa-solid fa-store fa-fade fa-2xl" style="color: #f9d51f;"></i></h2>
+                </div>
+                <div class="section col-md-10 float-right">
+                    <h2 class="heading">Plan de negocio</h2>
+                    <p class="paragraph">Somos especialistas en la venta de empanadas argentinas y no dependemos de una
+                        local grande que precise espacio para comer en el mismo, ni salida de humos (por ejemplo).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="section col-md-2 float-left">
+                    <h2><i class="fa-solid fa-bullhorn fa-fade fa-2xl" style="color: #f9d51f;"></i></h2>
+                </div>
+                <div class="section section col-md-10 float-right">
+                    <h2 class="heading">Imagen y Marketing</h2>
+                    <p class="paragraph">Hemos elaborado un manual de identidad corporativa con el cual seguir nuestras
+                        pautas de imagen y comunicación. Generamos comunidad y creamos campañas de publicidad en redes
+                        sociales.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="section col-md-2 float-left">
+                    <h2><i class="fa-solid fa-handshake fa-fade fa-2xl" style="color: #f9d51f;"></i></h2>
+                </div>
+                <div class="section section col-md-10 float-right">
+                    <h2 class="heading">Emprende junto a nosotros</h2>
+                    <p class="paragraph">Nuestro modelo de negocio busca asociados que trabajen en su propia tienda de
+                        Jimmy Churri. Minimiza los riesgos y consigue tu propio negocio de la mano de nuestra marca.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- CONTACT Section  -->
     <div id="contact" class="container-fluid bg-dark text-light border-top wow fadeIn">
 
-        {{-- <div class="row">
+        <div class="row">
             <div class="col-md-6 px-0">
                 <div id="map" style="width: 100%; height: 100%; min-height: 400px"></div>
             </div>
@@ -320,7 +490,7 @@
                     <p><span class="ti-email pr-3"></span>info@website.com</p>
                 </div>
             </div>
-        </div> --}}
+        </div>
     </div>
 
 
@@ -362,8 +532,8 @@
     <script src="{{ asset('vendors/wow/wow.js') }}"></script>
 
     <!-- google maps -->
-    {{-- <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script> --}}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
 
     <!-- FoodHut js -->
     <script src="{{ asset('js/foodhut.js') }}"></script>
@@ -373,6 +543,11 @@
 
     {{-- sweet alert --}}
     <script src="{{ asset('js/sweetalert.js') }}"></script>
+
+    <script src="{{ asset('fontawesome6/js/all.js') }}"></script>
+    <script src="{{ asset('fontawesome6/js/all.min.js') }}"></script>
+
+
 
 
 
